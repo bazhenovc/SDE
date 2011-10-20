@@ -15,14 +15,10 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(/usr/include/sde)
 
 qt4_wrap_cpp(MOC_SOURCES include/Panel.hh
-						 include/LookAndFeelWidget.hh
 						 include/PanelMenu.hh)
-
-qt4_wrap_ui(FORM_SOURCES ui/LookAndFeelWidget.ui)
 
 add_library(sde-panel-applet SHARED source/main.cc
 							  source/Panel.cc
-							  source/LookAndFeelWidget.cc
 							  source/PanelMenu.cc
 							  ${MOC_SOURCES}
 							  ${FORM_SOURCES})

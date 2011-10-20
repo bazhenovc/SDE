@@ -95,7 +95,7 @@ public:
 	/**
 		Override
 	*/
-	virtual void showConfigDialog();
+	virtual void showConfigDialog() {}
 
 signals:
 

@@ -17,40 +17,41 @@
 */
 #pragma once
 
-#include <QTabWidget>
+#include <QObject>
 
-namespace Ui {
-	class dialog;
-}
-
-class Panel;
-class Applet;
-
-class LookAndFeelWidget : public QTabWidget {
-	Q_OBJECT
-
+/**
+	A remote interface to control panel
+*/
+class PanelControl : public QObject {
 public:
-	LookAndFeelWidget(Panel* panel, QWidget *parent = 0);
-	~LookAndFeelWidget();
-
-private slots:
-	void on_panel_size_valueChanged(int );
-
-	void on_selectBackgroundBtn_clicked();
-
-	void on_removeAppletBtn_clicked();
-
-	void on_addAppletBtn_clicked();
-
-	void on_up_clicked();
-
-	void on_down_clicked();
-private:
-	Ui::dialog *ui;
-	Panel* _panel;
 
 	/**
-		Add an applet to the list view
+		Constructor
 	*/
-	void addApplet(Applet* applet);
+	PanelControl(Panel* parent);
+
+	/**
+		Destructor
+	*/
+	virtual ~PanelControl();
+
+	/**
+		A remote method to change panel size
+	*/
+	Q_SCRIPTABLE void setSize(int newSize);
+
+	/**
+		A remote method to change panel background
+	*/
+	Q_SCRIPTABLE void setBackground(const QString& newBackground);
+
+	/**
+		A remote method to add panel applet
+	*/
+	Q_SCRIPTABLE void addApplet(const QString& appletPath);
+
+	/**
+		A remote method to remove panel applet
+	*/
+	Q_SCRIPTABLE void removeApplet(const QString& applet);
 };

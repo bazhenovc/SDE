@@ -29,8 +29,8 @@
 #include <QtCore/QTextStream>
 
 #include <QMouseEvent>
+#include <QProcess>
 
-#include <LookAndFeelWidget.hh>
 #include <Applet.hh>
 #include <PanelWidget.hh>
 #include <PanelMenu.hh>
@@ -148,14 +148,10 @@ void Panel::removeAll() {
 	_applets.clear();
 }
 
-void Panel::showConfigDialog() {
-	LookAndFeelWidget* widget = new LookAndFeelWidget(this);
-	widget->show();
-}
-
 void Panel::showSettings() {
-	LookAndFeelWidget* widget = new LookAndFeelWidget(this);
-	widget->show();
+	static QProcess process;
+	if (process.state() != QProcess::Running || process.state() != QProcess::Starting)
+		process.start("sde-settings");
 }
 
 void Panel::doQuit() {

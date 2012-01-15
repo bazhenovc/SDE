@@ -107,6 +107,5 @@ private:
 private slots:
 
 	void onAppsBtnClick();
-	void onSystemBtnClick();
 
 };

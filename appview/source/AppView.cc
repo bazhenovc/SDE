@@ -82,6 +82,7 @@ void AppView::createWidgets() {
 				if (pix.isNull())
 					pix = QPixmap("/usr/share/sde/data/system.png");
 
+
 				AppWidget* widget = new AppWidget(w, appName,
 												  pix.scaled(80, 80),
 												  execName);

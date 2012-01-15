@@ -1,5 +1,5 @@
 /**
-	SDE session
+	SDE Window Manager
 	Copyright (c) 2011 SDE development team
 
 	This program is free software: you can redistribute it and/or modify
@@ -16,24 +16,13 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+#include <WMApplication.hh>
 
-#include <QProcess>
+#include <XEventLoopThread.hh>
 
-int main() {
-
-	// Start desktop
-	QProcess desktopProcess;
-	desktopProcess.start("sde-desktop");
-	desktopProcess.waitForStarted(-1);
-
-	// Execute autostart apps
-
-
-	// Wait for apps to die
-	desktopProcess.waitForFinished(-1);
-
-	return 0;
+bool WMApplication::fireWMThread()
+{
+	_thread = new XEventLoopThread(this);
+	_thread->start();
+	return true;
 }

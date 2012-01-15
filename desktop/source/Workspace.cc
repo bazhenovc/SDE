@@ -177,18 +177,10 @@ void Workspace::createWidgets() {
 	IconWidget* appsButton = new IconWidget("/usr/share/sde/data/apps.png",
 											tr("Apps"),
 											this);
-	appsButton->move(QApplication::desktop()->width() - appsButton->width() - 1,
+	appsButton->move(QApplication::desktop()->width() / 2 - appsButton->width() / 2,
 					 QApplication::desktop()->height() - appsButton->height() - 1);
 	appsButton->show();
 	connect(appsButton, SIGNAL(clicked()), this, SLOT(onAppsBtnClick()));
-
-	IconWidget* systemButton = new IconWidget("/usr/share/sde/data/system.png",
-											  tr("System"),
-											  this);
-	systemButton->move(1, QApplication::desktop()->height()
-					   - systemButton->height() - 1);
-	systemButton->show();
-	connect(systemButton, SIGNAL(clicked()), this, SLOT(onSystemBtnClick()));
 
 	NetWM::init(QX11Info::display());
 
@@ -209,9 +201,3 @@ void Workspace::onAppsBtnClick() {
 	}
 }
 
-void Workspace::onSystemBtnClick() {
-	static QProcess process;
-	if (process.state() != QProcess::Running || process.state() != QProcess::Starting) {
-		process.start("sde-settings");
-	}
-}

@@ -1,5 +1,5 @@
 /**
-	SDE session
+	SDE Window Manager
 	Copyright (c) 2011 SDE development team
 
 	This program is free software: you can redistribute it and/or modify
@@ -15,25 +15,23 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma once
 
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+#include <QCoreApplication>
 
-#include <QProcess>
+class XEventLoopThread;
 
-int main() {
+class WMApplication : public QCoreApplication
+{
+public:
 
-	// Start desktop
-	QProcess desktopProcess;
-	desktopProcess.start("sde-desktop");
-	desktopProcess.waitForStarted(-1);
+	WMApplication(int argc, char** argv)
+		: QCoreApplication(argc, argv)
+	{}
 
-	// Execute autostart apps
+	bool fireWMThread();
 
+private:
 
-	// Wait for apps to die
-	desktopProcess.waitForFinished(-1);
-
-	return 0;
-}
+	XEventLoopThread* _thread;
+};
